@@ -7,7 +7,7 @@ import type { RequestHandler } from './$types';
 // GET all contacts
 export const GET: RequestHandler = async () => {
   try {
-    const allContacts = db.select().from(contacts).all();
+    const allContacts = await db.select().from(contacts);
     return json(allContacts);
   } catch (error) {
     console.error('Error fetching contacts:', error);
@@ -28,7 +28,7 @@ export const POST: RequestHandler = async ({ request }) => {
       updatedAt: now
     };
 
-    db.insert(contacts).values(newContact).run();
+    await db.insert(contacts).values(newContact);
 
     return json(newContact, { status: 201 });
   } catch (error) {
@@ -49,14 +49,13 @@ export const PUT: RequestHandler = async ({ request }) => {
 
     const now = new Date().toISOString();
 
-    db.update(contacts)
+    await db.update(contacts)
       .set({ ...updateData, updatedAt: now })
-      .where(eq(contacts.id, id))
-      .run();
+      .where(eq(contacts.id, id));
 
-    const updated = db.select().from(contacts).where(eq(contacts.id, id)).get();
+    const updated = await db.select().from(contacts).where(eq(contacts.id, id));
 
-    return json(updated);
+    return json(updated[0]);
   } catch (error) {
     console.error('Error updating contact:', error);
     return json({ error: 'Failed to update contact' }, { status: 500 });
@@ -72,7 +71,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
       return json({ error: 'ID is required' }, { status: 400 });
     }
 
-    db.delete(contacts).where(eq(contacts.id, id)).run();
+    await db.delete(contacts).where(eq(contacts.id, id));
 
     return json({ success: true });
   } catch (error) {

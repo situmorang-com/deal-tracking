@@ -7,7 +7,7 @@ import type { RequestHandler } from './$types';
 // GET all opportunities
 export const GET: RequestHandler = async () => {
   try {
-    const allOpportunities = db.select().from(opportunities).all();
+    const allOpportunities = await db.select().from(opportunities);
     return json(allOpportunities);
   } catch (error) {
     console.error('Error fetching opportunities:', error);
@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request }) => {
   try {
     const data = await request.json();
     const now = new Date().toISOString();
-    
+
     const newOpportunity = {
       id: nanoid(),
       ...data,
@@ -30,8 +30,8 @@ export const POST: RequestHandler = async ({ request }) => {
       daysInStage: 0
     };
 
-    db.insert(opportunities).values(newOpportunity).run();
-    
+    await db.insert(opportunities).values(newOpportunity);
+
     return json(newOpportunity, { status: 201 });
   } catch (error) {
     console.error('Error creating opportunity:', error);
@@ -44,21 +44,20 @@ export const PUT: RequestHandler = async ({ request }) => {
   try {
     const data = await request.json();
     const { id, ...updateData } = data;
-    
+
     if (!id) {
       return json({ error: 'ID is required' }, { status: 400 });
     }
 
     const now = new Date().toISOString();
-    
-    db.update(opportunities)
+
+    await db.update(opportunities)
       .set({ ...updateData, updatedAt: now })
-      .where(eq(opportunities.id, id))
-      .run();
-    
-    const updated = db.select().from(opportunities).where(eq(opportunities.id, id)).get();
-    
-    return json(updated);
+      .where(eq(opportunities.id, id));
+
+    const updated = await db.select().from(opportunities).where(eq(opportunities.id, id));
+
+    return json(updated[0]);
   } catch (error) {
     console.error('Error updating opportunity:', error);
     return json({ error: 'Failed to update opportunity' }, { status: 500 });
@@ -69,13 +68,13 @@ export const PUT: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
   try {
     const { id } = await request.json();
-    
+
     if (!id) {
       return json({ error: 'ID is required' }, { status: 400 });
     }
 
-    db.delete(opportunities).where(eq(opportunities.id, id)).run();
-    
+    await db.delete(opportunities).where(eq(opportunities.id, id));
+
     return json({ success: true });
   } catch (error) {
     console.error('Error deleting opportunity:', error);
