@@ -155,11 +155,23 @@
   }
 
   function updateStats() {
-    stats.totalValue = opportunities.reduce((sum, opp) => sum + opp.value, 0);
-    stats.weightedValue = opportunities.reduce((sum, opp) => sum + (opp.value * opp.probability / 100), 0);
+    if (!opportunities || !Array.isArray(opportunities) || opportunities.length === 0) {
+      stats = {
+        totalValue: 0,
+        weightedValue: 0,
+        totalOpportunities: 0,
+        avgDealSize: 0,
+        closingThisMonth: 0
+      };
+      return;
+    }
+
+    stats.totalValue = opportunities.reduce((sum, opp) => sum + (opp.value || 0), 0);
+    stats.weightedValue = opportunities.reduce((sum, opp) => sum + ((opp.value || 0) * (opp.probability || 0) / 100), 0);
     stats.totalOpportunities = opportunities.length;
-    stats.avgDealSize = opportunities.reduce((sum, opp) => sum + opp.value, 0) / opportunities.length;
+    stats.avgDealSize = stats.totalValue / opportunities.length;
     stats.closingThisMonth = opportunities.filter(opp => {
+      if (!opp.expectedCloseDate) return false;
       const closeDate = new Date(opp.expectedCloseDate);
       const now = new Date();
       return closeDate.getMonth() === now.getMonth() && closeDate.getFullYear() === now.getFullYear();
@@ -377,8 +389,8 @@
 
           <div class="space-y-3">
             {#each ['Discovery', 'Qualification', 'Proposal', 'Negotiation'] as stage}
-              {@const stageOpps = opportunities.filter(o => o.stage === stage)}
-              {@const stageValue = stageOpps.reduce((sum, o) => sum + o.value, 0)}
+              {@const stageOpps = (opportunities || []).filter(o => o.stage === stage)}
+              {@const stageValue = stageOpps.reduce((sum, o) => sum + (o.value || 0), 0)}
               <div class="p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
                 <div class="flex justify-between items-center mb-2">
                   <span class="text-white font-medium text-sm">{stage}</span>
@@ -389,7 +401,7 @@
                 {/if}
                 <div class="w-full bg-white/10 rounded-full h-2 mt-2">
                   <div class="bg-gradient-to-r {getStageColor(stage)} h-2 rounded-full transition-all duration-300"
-                       style="width: {(stageOpps.length / opportunities.length) * 100}%"></div>
+                       style="width: {opportunities.length > 0 ? (stageOpps.length / opportunities.length) * 100 : 0}%"></div>
                 </div>
               </div>
             {/each}
