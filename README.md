@@ -2,6 +2,8 @@
 
 A sales pipeline management application that helps teams move opportunities from first contact to closed‑won. It combines clear pipeline management with a visual interface where each stage reflects a step in your sales process, giving instant clarity on what's active, stuck, or ready to close.
 
+![Screenshot](static/images/screenshot.jpeg)
+
 ## Features
 
 - Create and manage pipeline opportunities
