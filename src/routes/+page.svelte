@@ -184,142 +184,142 @@
 </svelte:head>
 
 
-<div class="min-h-screen px-4 py-8">
-  <div class="container mx-auto">
+<div class="min-h-screen px-3 md:px-4 py-4 md:py-8">
+  <div class="container mx-auto max-w-7xl">
     <!-- Enhanced Header -->
-    <div class="mb-12 p-8 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-4">
+    <div class="mb-6 md:mb-12 p-4 md:p-8 rounded-2xl md:rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-3 md:space-x-4">
           <img
             src="/edmund-situmorang-profilepic.png"
             alt="Edmund Situmorang"
-            class="w-20 h-20 rounded-2xl object-cover border-2 border-white/20"
+            class="w-14 h-14 md:w-20 md:h-20 rounded-xl md:rounded-2xl object-cover border-2 border-white/20"
           />
           <div>
-            <h1 class="text-4xl font-bold text-white tracking-tight">EdPipelines</h1>
-            <p class="text-white/70 text-lg">{getGreeting()}! Track your sales pipeline.</p>
+            <h1 class="text-2xl md:text-4xl font-bold text-white tracking-tight">EdPipelines</h1>
+            <p class="text-white/70 text-sm md:text-lg">{getGreeting()}! Track your sales pipeline.</p>
           </div>
         </div>
-        <div class="text-right">
-          <div class="text-3xl font-bold text-white tabular-nums">{formatTime(currentTime)}</div>
-          <div class="text-sm text-white/60">{formatDate(currentTime)}</div>
+        <div class="text-left md:text-right w-full md:w-auto">
+          <div class="text-xl md:text-3xl font-bold text-white tabular-nums">{formatTime(currentTime)}</div>
+          <div class="text-xs md:text-sm text-white/60">{formatDate(currentTime)}</div>
         </div>
       </div>
     </div>
 
     <!-- Stats Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8">
-      <div class="bg-white/10 backdrop-blur-lg p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-semibold text-white/80 mb-1">Pipeline Value</h3>
-            <p class="text-2xl font-bold text-green-400">{formatCurrency(stats.totalValue)}</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mb-6 md:mb-8">
+      <div class="bg-white/10 backdrop-blur-lg p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs md:text-sm font-semibold text-white/80">Pipeline Value</h3>
+            <DollarSign class="w-4 h-4 md:w-6 md:h-6 text-green-400/60" />
           </div>
-          <DollarSign class="w-6 h-6 text-green-400/60" />
+          <p class="text-lg md:text-2xl font-bold text-green-400">{formatCurrency(stats.totalValue)}</p>
         </div>
       </div>
 
-      <div class="bg-white/10 backdrop-blur-lg p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-semibold text-white/80 mb-1">Weighted Value</h3>
-            <p class="text-2xl font-bold text-blue-400">{formatCurrency(stats.weightedValue)}</p>
+      <div class="bg-white/10 backdrop-blur-lg p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs md:text-sm font-semibold text-white/80">Weighted Value</h3>
+            <Target class="w-4 h-4 md:w-6 md:h-6 text-blue-400/60" />
           </div>
-          <Target class="w-6 h-6 text-blue-400/60" />
+          <p class="text-lg md:text-2xl font-bold text-blue-400">{formatCurrency(stats.weightedValue)}</p>
         </div>
       </div>
 
-      <div class="bg-white/10 backdrop-blur-lg p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-semibold text-white/80 mb-1">Active Deals</h3>
-            <p class="text-2xl font-bold text-purple-400">{stats.totalOpportunities}</p>
+      <div class="bg-white/10 backdrop-blur-lg p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs md:text-sm font-semibold text-white/80">Active Deals</h3>
+            <Eye class="w-4 h-4 md:w-6 md:h-6 text-purple-400/60" />
           </div>
-          <Eye class="w-6 h-6 text-purple-400/60" />
+          <p class="text-lg md:text-2xl font-bold text-purple-400">{stats.totalOpportunities}</p>
         </div>
       </div>
 
-      <div class="bg-white/10 backdrop-blur-lg p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-semibold text-white/80 mb-1">Avg Deal Size</h3>
-            <p class="text-2xl font-bold text-yellow-400">{formatCurrency(stats.avgDealSize)}</p>
+      <div class="bg-white/10 backdrop-blur-lg p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs md:text-sm font-semibold text-white/80">Avg Deal Size</h3>
+            <TrendingUp class="w-4 h-4 md:w-6 md:h-6 text-yellow-400/60" />
           </div>
-          <TrendingUp class="w-6 h-6 text-yellow-400/60" />
+          <p class="text-lg md:text-2xl font-bold text-yellow-400">{formatCurrency(stats.avgDealSize)}</p>
         </div>
       </div>
 
-      <div class="bg-white/10 backdrop-blur-lg p-4 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 col-span-2 sm:col-span-1">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-semibold text-white/80 mb-1">Closing This Month</h3>
-            <p class="text-2xl font-bold text-red-400">{stats.closingThisMonth}</p>
+      <div class="bg-white/10 backdrop-blur-lg p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 col-span-2 md:col-span-1">
+        <div class="flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs md:text-sm font-semibold text-white/80">Closing This Month</h3>
+            <Calendar class="w-4 h-4 md:w-6 md:h-6 text-red-400/60" />
           </div>
-          <Calendar class="w-6 h-6 text-red-400/60" />
+          <p class="text-lg md:text-2xl font-bold text-red-400">{stats.closingThisMonth}</p>
         </div>
       </div>
     </div>
 
     <!-- Main Content -->
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-8">
       <!-- Opportunities List -->
       <div class="xl:col-span-2">
-        <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-white/20">
-          <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center space-x-3">
-              <div class="p-3 rounded-xl bg-white/20 backdrop-blur-sm">
-                <TrendingUp class="w-6 h-6 text-white" />
+        <div class="bg-white/10 backdrop-blur-lg p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3">
+            <div class="flex items-center space-x-2 md:space-x-3">
+              <div class="p-2 md:p-3 rounded-lg md:rounded-xl bg-white/20 backdrop-blur-sm">
+                <TrendingUp class="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
-              <h2 class="text-2xl font-bold text-white">Active Opportunities</h2>
+              <h2 class="text-lg md:text-2xl font-bold text-white">Active Opportunities</h2>
             </div>
             <button
               on:click={() => {
                 editingOpportunity = null;
                 showPipelineForm = true;
               }}
-              class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+              class="flex items-center space-x-2 px-3 md:px-4 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white text-sm md:text-base font-semibold rounded-lg md:rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              <Plus class="w-5 h-5" />
+              <Plus class="w-4 h-4 md:w-5 md:h-5" />
               <span>Add New</span>
             </button>
           </div>
 
           <div class="space-y-4">
             {#each opportunities as opportunity}
-              <div class="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
+              <div class="group relative overflow-hidden rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
                 <!-- Stage indicator -->
                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b {getStageColor(opportunity.stage)}"></div>
 
-                <div class="p-6 pl-8">
+                <div class="p-4 md:p-6 pl-5 md:pl-8">
                   <!-- Header -->
-                  <div class="flex items-start justify-between mb-4">
-                    <div class="flex-1">
-                      <h3 class="text-white font-semibold text-lg group-hover:text-white/90 transition-colors">
+                  <div class="flex items-start justify-between mb-3 md:mb-4 gap-2">
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-white font-semibold text-base md:text-lg group-hover:text-white/90 transition-colors truncate">
                         {opportunity.title}
                       </h3>
-                      <div class="flex items-center space-x-2 mt-1">
-                        <Building class="w-4 h-4 text-white/60" />
-                        <span class="text-white/70 text-sm">{opportunity.company}</span>
+                      <div class="flex items-center space-x-1 md:space-x-2 mt-1">
+                        <Building class="w-3 h-3 md:w-4 md:h-4 text-white/60 flex-shrink-0" />
+                        <span class="text-white/70 text-xs md:text-sm truncate">{opportunity.company}</span>
                       </div>
                     </div>
 
-                    <div class="flex items-start space-x-3">
+                    <div class="flex items-start space-x-2 md:space-x-3 flex-shrink-0">
                       <div class="text-right">
-                        <div class="text-2xl font-bold text-green-400">
+                        <div class="text-lg md:text-2xl font-bold text-green-400">
                           {formatCurrency(opportunity.value)}
                         </div>
-                        <div class="text-white/60 text-sm">
-                          {opportunity.probability}% probability
+                        <div class="text-white/60 text-xs md:text-sm whitespace-nowrap">
+                          {opportunity.probability}%
                         </div>
                       </div>
 
                       <!-- Edit Button -->
                       <button
                         on:click={() => handleEditOpportunity(opportunity)}
-                        class="opacity-0 group-hover:opacity-100 p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all duration-300"
+                        class="md:opacity-0 md:group-hover:opacity-100 p-1.5 md:p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all duration-300"
                         title="Edit opportunity"
                       >
-                        <Edit class="w-4 h-4" />
+                        <Edit class="w-3.5 h-3.5 md:w-4 md:h-4" />
                       </button>
                     </div>
                   </div>
@@ -343,24 +343,24 @@
                   {/if}
 
                   <!-- Footer -->
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
+                  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <div class="flex items-center gap-2 md:gap-4 flex-wrap">
                       <!-- Stage badge -->
-                      <div class="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r {getStageColor(opportunity.stage)} text-white text-xs font-medium">
+                      <div class="inline-flex items-center px-2 md:px-3 py-1 rounded-full bg-gradient-to-r {getStageColor(opportunity.stage)} text-white text-xs font-medium">
                         {opportunity.stage}
                       </div>
 
                       <!-- Days in stage -->
                       <div class="flex items-center space-x-1">
                         <Clock class="w-3 h-3 text-white/60" />
-                        <span class="text-white/60 text-xs">{opportunity.daysInStage} days in stage</span>
+                        <span class="text-white/60 text-xs">{opportunity.daysInStage}d</span>
                       </div>
                     </div>
 
-                    <div class="flex items-center space-x-4 text-xs text-white/60">
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-xs text-white/60">
                       <div class="flex items-center space-x-1">
                         <MessageSquare class="w-3 h-3" />
-                        <span>Last activity: {formatTimeAgo(opportunity.lastActivity)}</span>
+                        <span class="truncate">Last: {formatTimeAgo(opportunity.lastActivity)}</span>
                       </div>
 
                       <div class="flex items-center space-x-1">
